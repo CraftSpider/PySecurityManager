@@ -40,6 +40,15 @@ when this happens, to guarantee the shutdown of the runtime after hooks are clea
 because while the hook clear is unstoppable, this prevents malicious C code from calling the clear
 without the user noticing.
 
+### Alternatives
+In 3.7 and below, some of what this does was replicable. However, it was much more complicated.
+One could replace builtin functions with their own implementations, which for many functions might
+require custom handling. Unfortunately, things like `object.__getattr__` and `object.__setattr__`
+can not be replaced at the Python level. Trying to set them at runtime results in a `TypeError`,
+so to audit them would require a custom version of the CPython interpreter. In short, one would
+have needed to just write the entire Audit system themselves into the CPython source, then use a
+custom Python interpreter.
+
 ## TODO
 
 - Change to C, as the 'steal then delete' currently can be gotten around
