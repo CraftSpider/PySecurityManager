@@ -15,27 +15,17 @@
     secman.set_permission
     secman.get_permission
 
-    Simple Example:
-    ```py
-    import secman
-    manager = secman.SecurityManager()
-    # Allow imports of modules, not packaged (packages also require open and os.listdir)
-    manager.set_permission(secman.Permission("import", True))
-    manager.set_permission(secman.Permission("exec", True))
-    # By default, adds for all threads. Accepts a thread ID as a second value
-    secman.add_manager(manager)
-    ```
-
     TODO: Implement in C so it's truly secure, currently there are probably ways around it
 """
 
 import sys
 import threading
 
-from . import manager, permissions, errors
+from . import manager, permissions, errors, targets
 from .manager import *
 from .permissions import *
 from .errors import *
+from .targets import *
 
 
 __author__ = "CraftSpider"
